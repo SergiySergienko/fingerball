@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  stat_type: MyString
+  level: 1
+  data: 
+
+two:
+  user_id: 2
+  stat_type: MyString2
+  level: 2
+  data: 
