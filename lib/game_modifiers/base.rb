@@ -1,6 +1,6 @@
 class GamseModifiers::Base
 
-  def self.can_modify?(instance_to_modify)
+  def self.can_modify?(instance_to_modify, options = {})
     raise "should be overrided!"
   end
 

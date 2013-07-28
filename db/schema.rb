@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130724225201) do
+ActiveRecord::Schema.define(version: 20130727232255) do
+
+  create_table "user_attributes", force: true do |t|
+    t.integer  "user_id"
+    t.string   "attribute_type"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_attributes", ["attribute_type"], name: "index_user_attributes_on_attribute_type"
+  add_index "user_attributes", ["user_id", "attribute_type"], name: "index_user_attributes_on_user_id_and_attribute_type"
+  add_index "user_attributes", ["user_id"], name: "index_user_attributes_on_user_id"
 
   create_table "user_stats", force: true do |t|
     t.integer  "user_id"

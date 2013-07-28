@@ -6,7 +6,8 @@ module UserExt
     scope :players, -> {where(user_type: UserType::Player.key)}
     scope :managers, -> {where(user_type: UserType::Manager.key)}
     has_many :stats, :class_name => "UserStat", :dependent => :destroy
-    before_save :prepare_stats
+    has_many :user_attributes, :dependent => :destroy
+    before_save :prepare_base_user
   end
 
   #instance methods
@@ -21,8 +22,20 @@ module UserExt
 
   protected
 
+  def prepare_base_user
+    self.transaction do
+      prepare_stats
+      prepare_attrs
+    end
+  end
+
   def prepare_stats
     self.stats << UserStatType::StatTypeListener.get_instance.build_base_stats_collection(self) if self.id.nil? && self.stats.empty?
+    self
+  end
+
+  def prepare_attrs
+    self.user_attributes << UserAttribute.build_base_collection(self) if self.id.nil? && self.user_attributes.empty?
     self
   end
 
